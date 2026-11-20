@@ -121,3 +121,15 @@
         justify-content: flex-end;
     }
 }
+
+/* Manual-approval policy notice (SearchResults Header slot) — informational, not an error */
+.block.product-list-page .approval-disclaimer {
+    margin-block-end: var(--spacing-small);
+    padding: var(--spacing-xsmall) var(--spacing-small);
+    border: var(--shape-border-width-1) solid var(--color-informational-500);
+    border-inline-start-width: var(--shape-border-width-4);
+    border-radius: var(--shape-border-radius-1);
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-800);
+    font: var(--type-body-2-default-font);
+}

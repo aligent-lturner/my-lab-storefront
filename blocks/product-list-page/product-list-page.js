@@ -29,6 +29,20 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   const pageSize = parseInt(config.pagesize, 10) || 9;
 
+  // NOTE: This dollar amount is display-only. It MUST match whatever actually
+  // enforces order approval in Commerce — nothing here keeps the two in sync.
+  // If the Commerce-side threshold changes, update the authored
+  // "Approval Threshold" row in da.live too (and vice versa).
+  const DEFAULT_APPROVAL_THRESHOLD = 500;
+  const parsedThreshold = parseFloat(String(config['approval-threshold'] ?? '').replace(/[^0-9.]/g, ''));
+  const approvalThreshold = Number.isFinite(parsedThreshold) && parsedThreshold > 0
+    ? parsedThreshold
+    : DEFAULT_APPROVAL_THRESHOLD;
+  const formattedThreshold = approvalThreshold.toLocaleString('en-US', {
+    minimumFractionDigits: Number.isInteger(approvalThreshold) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+
   const fragment = document.createRange().createContextualFragment(`
     <div class="search__wrapper">
       <div class="search__result-info" role="status" aria-live="polite"></div>
@@ -188,6 +202,13 @@ export default async function decorate(block) {
           actionsWrapper.appendChild(addToCartBtn);
           actionsWrapper.appendChild($wishlistToggle);
           ctx.replaceWith(actionsWrapper);
+        },
+        Header: (ctx) => {
+          const el = document.createElement('div');
+          el.className = 'approval-disclaimer';
+          el.setAttribute('role', 'note');
+          el.textContent = `Orders over $${formattedThreshold} are reviewed and manually approved before they ship.`;
+          ctx.appendChild(el);
         },
       },
     })($productList),
