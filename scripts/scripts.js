@@ -22,6 +22,19 @@ import {
   decorateSections,
   IS_DA,
 } from './commerce.js';
+import {
+  runExperimentation,
+  runExperimentationLazy,
+} from './experiment-loader.js';
+
+const experimentationConfig = {
+  prodHost: 'main--my-lab-storefront--aligent-lturner.aem.live', // add your prodHost here, otherwise we will show mock data
+  audiences: {
+    mobile: () => window.innerWidth < 600,
+    desktop: () => window.innerWidth >= 600,
+    // define your custom audiences here as needed
+  },
+};
 
 /*
  * Trusted Types default policy.
@@ -265,6 +278,7 @@ async function loadEager(doc) {
   } catch (e) {
     // do nothing
   }
+  await runExperimentation(doc, experimentationConfig);
 }
 
 /**
@@ -287,6 +301,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  await runExperimentationLazy(doc, experimentationConfig);
 }
 
 /**
