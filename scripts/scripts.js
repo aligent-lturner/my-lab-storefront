@@ -78,6 +78,40 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
 }
 
 /**
+ * Moves attributes from one element to another.
+ * @param {Element} from the element to move attributes from
+ * @param {Element} to the element to move attributes to
+ * @param {string[]} [attributes] attribute names to move; defaults to all
+ */
+export function moveAttributes(from, to, attributes) {
+  const names = attributes || [...from.attributes].map(({ nodeName }) => nodeName);
+  names.forEach((attr) => {
+    const value = from.getAttribute(attr);
+    if (value) {
+      to?.setAttribute(attr, value);
+      from.removeAttribute(attr);
+    }
+  });
+}
+
+/**
+ * Moves Universal Editor instrumentation (data-aue-*, data-richtext-*) from one
+ * element to another, so editable anchors survive block DOM restructuring.
+ * No-op outside the editor, where these attributes are absent.
+ * @param {Element} from the element to move instrumentation from
+ * @param {Element} to the element to move instrumentation to
+ */
+export function moveInstrumentation(from, to) {
+  moveAttributes(
+    from,
+    to,
+    [...from.attributes]
+      .map(({ nodeName }) => nodeName)
+      .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
+  );
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -152,7 +186,7 @@ function buildAutoBlocks(main) {
  * Decorates formatted links to style them as buttons.
  * @param {HTMLElement} main The main container element
  */
-function decorateButtons(main) {
+export function decorateButtons(main) {
   main.querySelectorAll('p a[href]').forEach((a) => {
     a.title = a.title || a.textContent;
     const p = a.closest('p');
