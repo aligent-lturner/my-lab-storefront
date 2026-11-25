@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><title>Reassurance panel test</title>
+<meta
+  http-equiv="Content-Security-Policy"
+  content="script-src 'nonce-aem' 'strict-dynamic' 'unsafe-inline' http: https:; base-uri 'self'; object-src 'none'; frame-src 'self' https:;"
+  move-to-http-header="true"
+/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script nonce="aem" type="speculationrules">
+    {
+        "prerender": [{
+            "where": {
+                "href_matches": "/*"
+            },
+            "eagerness": "moderate"
+        }]
+    }
+</script>
+<script nonce="aem" type="importmap">
+    {
+        "imports": {
+            "@dropins/storefront-account/": "/scripts/__dropins__/storefront-account/",
+            "@dropins/storefront-auth/": "/scripts/__dropins__/storefront-auth/",
+            "@dropins/storefront-cart/": "/scripts/__dropins__/storefront-cart/",
+            "@dropins/storefront-checkout/": "/scripts/__dropins__/storefront-checkout/",
+            "@dropins/storefront-order/": "/scripts/__dropins__/storefront-order/",
+            "@dropins/storefront-payment-services/": "/scripts/__dropins__/storefront-payment-services/",
+            "@dropins/storefront-pdp/": "/scripts/__dropins__/storefront-pdp/",
+            "@dropins/storefront-recommendations/": "/scripts/__dropins__/storefront-recommendations/",
+            "@dropins/storefront-wishlist/": "/scripts/__dropins__/storefront-wishlist/",
+            "@dropins/storefront-personalization/": "/scripts/__dropins__/storefront-personalization/",
+            "@dropins/storefront-product-discovery/": "/scripts/__dropins__/storefront-product-discovery/",
+            "@dropins/tools/": "/scripts/__dropins__/tools/"
+        }
+    }
+</script>
+
+<link rel="stylesheet" href="/styles/styles.css" />
+
+<script nonce="aem" type="module">
+    if (!(HTMLScriptElement.supports?.('importmap'))) {
+        import('/scripts/__dropins__/tools/shims/importmap.js');
+    }
+</script>
+
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<script nonce="aem" src="/scripts/commerce.js" type="module"></script>
+
+<link rel="modulepreload" href="/scripts/__dropins__/tools/lib/aem/configs.js" />
+<link rel="modulepreload" href="/scripts/initializers/index.js" />
+<link rel="modulepreload" href="/scripts/initializers/auth.js" />
+<link rel="modulepreload" href="/scripts/initializers/personalization.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/storefront-auth/api.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/tools/event-bus.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/tools/fetch-graphql.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/tools/initializer.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/tools/preact.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/tools/preact-bundle.js" />
+<link rel="modulepreload" href="/scripts/__dropins__/tools/components.js" />
+</head><body><header></header><main><div><div class="reassurance-panel" data-aue-resource="urn:aemconnection:/content/site/index/jcr:content/root/section/block" data-aue-type="container" data-aue-model="" data-aue-filter="reassurance-panel" data-aue-label="Reassurance Panel"><div data-aue-resource="urn:aemconnection:/content/site/index/jcr:content/root/section/block/item1" data-aue-type="component" data-aue-model="reassurance-panel-item" data-aue-label="Reassurance Item"><div><picture><img src="/icons/cart.svg" alt="" data-aue-prop="image" data-aue-label="Icon" data-aue-type="media"></picture></div><div data-aue-prop="heading" data-aue-label="Heading" data-aue-type="text">Heading 1</div><div data-aue-prop="text" data-aue-label="Text" data-aue-type="text">Text 1</div></div><div data-aue-resource="urn:aemconnection:/content/site/index/jcr:content/root/section/block/item2" data-aue-type="component" data-aue-model="reassurance-panel-item" data-aue-label="Reassurance Item"><div><picture><img src="/media_abc.png" alt="" data-aue-prop="image" data-aue-label="Icon" data-aue-type="media"></picture></div><div><p data-aue-prop="heading" data-aue-label="Heading" data-aue-type="text">Heading 2</p></div><div><p data-aue-prop="text" data-aue-label="Text" data-aue-type="text">Text 2</p></div></div><div data-aue-resource="urn:aemconnection:/content/site/index/jcr:content/root/section/block/item3" data-aue-type="component" data-aue-model="reassurance-panel-item" data-aue-label="Reassurance Item"><div><picture><img src="/icons/search.svg" alt="" data-aue-prop="image" data-aue-label="Icon" data-aue-type="media"></picture></div><div><p data-aue-prop="heading" data-aue-label="Heading" data-aue-type="text">Heading 3</p></div><div><p data-aue-prop="text" data-aue-label="Text" data-aue-type="text">Text 3</p></div></div><div data-aue-resource="urn:aemconnection:/content/site/index/jcr:content/root/section/block/item4" data-aue-type="component" data-aue-model="reassurance-panel-item" data-aue-label="Reassurance Item"><div></div><div></div><div></div></div></div></div></main><footer></footer><script nonce="aem">
+let es='ok';import('/scripts/editor-support.js').catch(e=>{es=String(e)});
+setTimeout(()=>{const b=document.querySelector('.reassurance-panel');
+const aue=el=>Object.fromEntries([...el.attributes].filter(a=>a.name.startsWith('data-aue-')).map(a=>[a.name.replace('data-aue-',''),a.value]));
+const o={editorSupport:es,status:b.dataset.blockStatus,block:aue(b),
+items:[...b.querySelectorAll('li')].map(li=>({li:aue(li),img:li.querySelector('img')&&{tag:li.querySelector('img').parentElement.tagName,...aue(li.querySelector('img'))},h3:li.querySelector('h3')&&aue(li.querySelector('h3')),p:li.querySelector('p')&&aue(li.querySelector('p'))})),
+leftover:[...b.querySelectorAll('[data-aue-prop]')].filter(e=>!e.matches('li,img,h3,p')).length};
+const p=document.createElement('pre');p.id='probe';p.textContent=JSON.stringify(o,null,1);document.body.append(p)},4000);
+</script></body></html>
