@@ -1,0 +1,24 @@
+[
+  {
+    "id": "main",
+    "components": [
+      "section"
+    ]
+  },
+  {
+    "id": "section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "reassurance-panel"
+    ]
+  },
+  {
+    "id": "reassurance-panel",
+    "components": [
+      "reassurance-panel-item"
+    ]
+  }
+]
